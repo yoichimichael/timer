@@ -47,32 +47,28 @@ function convertSecondsToTimeDisplay(seconds){
 }
 
 function App() {
-  const [seconds, setSeconds] = useState(0);
+  const [seconds, setSeconds] = useState(5400);
   const [isRunning, setIsRunning] = useState(false);
   const [timerInterval, setTimerInterval] = useState(null);
   const [isTimerSet, setIsTimerSet] = useState(false);
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   if (isTimerSet) {
-  //     return;
-  //   } else {
-  //     isTimerSet.current = true
-  //   }
-  // }, [seconds])
-
   useEffect(() => {
     if (seconds === 0) {
-      // setIsTimerSet(false);
       stopTimer();
     } 
   }, [seconds])
 
-  function addTime(){
+  function addTime(type){
     setIsTimerSet(true);
     setSeconds(prev => {
-      if (seconds + 60 > 5940) return 5940;
+      if (type === 'm') {
+        if (seconds + 60 > 5940) return 5940;
+        if (seconds < 5940) return prev + 60;
+      } 
+      if (seconds + 5 > 5940) return 5940;
       if (seconds < 5940) return prev + 5;
+
       return prev;
     })
   }
@@ -112,7 +108,8 @@ function App() {
           <Typography variant="h1" component="h1">{convertSecondsToTimeDisplay(seconds)}</Typography>
         </Box>
         <Box className={classes.controls}>
-          <Button variant="contained" onClick={addTime} className={classes.increment}>+1 Minute</Button>
+          <Button variant="contained" onClick={() => addTime("m")} className={classes.increment}>+1 Min</Button>
+          <Button variant="contained" onClick={() => addTime("s")} className={classes.increment}>+5 Sec</Button>
           <Button variant="contained" color="primary" onClick={isRunning ? stopTimer : startTimer}>{isRunning ? 'Pause' : 'Start'}</Button>
           <Button variant="contained" color="secondary" onClick={resetTimer}>Reset</Button>
         </Box>
