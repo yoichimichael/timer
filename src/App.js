@@ -63,7 +63,7 @@ function App() {
 
   useEffect(() => {
     if (seconds === 0) {
-      setIsTimerSet(true);
+      // setIsTimerSet(false);
       stopTimer();
     } 
   }, [seconds])
@@ -100,6 +100,7 @@ function App() {
       clearInterval(timerInterval);
       setTimerInterval(null);
     }
+    setIsRunning(false);
     setSeconds(0);
     setIsTimerSet(false);
   }
