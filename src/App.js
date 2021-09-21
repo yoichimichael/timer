@@ -33,10 +33,12 @@ const useStyles = makeStyles(theme => ({
     '& > Button': {
       fontSize: theme.spacing(3),
     }
-  } 
+  },
+  increment: {
+    backgroundColor: '#e2e2e2',
+    color: 'black',
+  }
 }))
-
-// maxseconds = 5940
 
 function convertSecondsToTimeDisplay(seconds){
   const minutes = Math.floor(seconds / 60);
@@ -48,17 +50,35 @@ function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [timerInterval, setTimerInterval] = useState(null);
+  const [isTimerSet, setIsTimerSet] = useState(false);
   const classes = useStyles();
 
+  // useEffect(() => {
+  //   if (isTimerSet) {
+  //     return;
+  //   } else {
+  //     isTimerSet.current = true
+  //   }
+  // }, [seconds])
+
+  useEffect(() => {
+    if (seconds === 0) {
+      setIsTimerSet(true);
+      stopTimer();
+    } 
+  }, [seconds])
+
   function addTime(){
+    setIsTimerSet(true);
     setSeconds(prev => {
       if (seconds + 60 > 5940) return 5940;
-      if (seconds < 5940) return prev + 60;
+      if (seconds < 5940) return prev + 5;
       return prev;
     })
   }
 
   function startTimer(){
+    if (seconds === 0) return;
     const intervalId = setInterval(() => {
       setSeconds(prev => {
         if (prev > 0) return prev - 1;
@@ -81,16 +101,17 @@ function App() {
       setTimerInterval(null);
     }
     setSeconds(0);
+    setIsTimerSet(false);
   }
 
   return (
     <Box className={classes.root}>
       <Box className={classes.body}>
-        <Box className={classes.display}>
+        <Box className={classes.display} style={isTimerSet && seconds === 0 ? { borderColor: 'orange' } : null}>
           <Typography variant="h1" component="h1">{convertSecondsToTimeDisplay(seconds)}</Typography>
         </Box>
         <Box className={classes.controls}>
-          <Button variant="contained" onClick={addTime}>+1 Minute</Button>
+          <Button variant="contained" onClick={addTime} className={classes.increment}>+1 Minute</Button>
           <Button variant="contained" color="primary" onClick={isRunning ? stopTimer : startTimer}>{isRunning ? 'Pause' : 'Start'}</Button>
           <Button variant="contained" color="secondary" onClick={resetTimer}>Reset</Button>
         </Box>
