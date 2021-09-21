@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function App() {
-  
   const classes = useStyles();
 
   return (
