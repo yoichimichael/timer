@@ -47,7 +47,7 @@ function convertSecondsToTimeDisplay(seconds){
 }
 
 function App() {
-  const [seconds, setSeconds] = useState(5400);
+  const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [timerInterval, setTimerInterval] = useState(null);
   const [isTimerSet, setIsTimerSet] = useState(false);
