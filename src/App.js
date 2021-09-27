@@ -60,10 +60,11 @@ function App() {
       if (type === 'm') {
         if (seconds + 60 > 5940) return 5940;
         if (seconds < 5940) return prev + 60;
-      } 
-      if (seconds + 5 > 5940) return 5940;
-      if (seconds < 5940) return prev + 5;
-
+      } else {
+        if (seconds + 5 > 5940) return 5940;
+        if (seconds < 5940) return prev + 5;
+      }
+      
       return prev;
     })
   }
