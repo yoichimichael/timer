@@ -4,11 +4,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-
-/*
-lightgrey: #e2e2e2
-*/
-
 const useStyles = makeStyles(theme => ({
 
   root: {
