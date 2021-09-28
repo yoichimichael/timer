@@ -44,15 +44,19 @@ function convertSecondsToTimeDisplay(seconds){
 function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [timerInterval, setTimerInterval] = useState(null);
-  const [isTimerSet, setIsTimerSet] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
+    let intervalID;
+    if (seconds > 0){
+      intervalID = setInterval(() => {
+
+      }, 1000)
+    }
     if (seconds === 0) {
       stopTimer();
     } 
-  }, [seconds])
+  }, [isRunning, seconds])
 
   function addTime(type){
     setIsTimerSet(true);
