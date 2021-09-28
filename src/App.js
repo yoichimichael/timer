@@ -48,14 +48,12 @@ function App() {
 
   useEffect(() => {
     let intervalID;
-    if (seconds > 0){
+    if (seconds > 0) {
       intervalID = setInterval(() => {
-
+        if (isRunning) setSeconds(prev => prev - 1);
       }, 1000)
     }
-    if (seconds === 0) {
-      stopTimer();
-    } 
+    return () => clearInterval(intervalID);
   }, [isRunning, seconds])
 
   function addTime(type){
@@ -72,37 +70,23 @@ function App() {
   }
 
   function startTimer(){
-    if (seconds === 0) return;
-    const intervalId = setInterval(() => {
-      setSeconds(prev => {
-        if (prev > 0) return prev - 1;
-        return prev;
-      })
-    }, 1000);
-    setIsRunning(true);
-    setTimerInterval(intervalId);
+    if (seconds > 0) setIsRunning(true);
   }
 
   function stopTimer(){
-    clearInterval(timerInterval);
-    setTimerInterval(null);
     setIsRunning(false);
   }
 
   function resetTimer(){
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      setTimerInterval(null);
-    }
-    setIsRunning(false);
     setSeconds(0);
-    setIsTimerSet(false);
+    setIsRunning(false);
   }
 
+  console.log({isRunning, seconds})
   return (
     <Box className={classes.root}>
       <Box className={classes.body}>
-        <Box className={classes.display} style={isTimerSet && seconds === 0 ? { borderColor: 'orange' } : null}>
+        <Box className={classes.display} style={isRunning && seconds === 0 ? { borderColor: 'orange' } : null}>
           <Typography variant="h1" component="h1">{convertSecondsToTimeDisplay(seconds)}</Typography>
         </Box>
         <Box className={classes.controls}>
