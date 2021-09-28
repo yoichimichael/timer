@@ -59,7 +59,6 @@ function App() {
   }, [isRunning, seconds])
 
   function addTime(type){
-    setIsTimerSet(true);
     setSeconds(prev => {
       if (type === 'm') {
         if (seconds + 60 > 5940) return 5940;
@@ -68,7 +67,6 @@ function App() {
         if (seconds + 5 > 5940) return 5940;
         if (seconds < 5940) return prev + 5;
       }
-      
       return prev;
     })
   }
