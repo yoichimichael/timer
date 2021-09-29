@@ -41,6 +41,10 @@ function convertSecondsToTimeDisplay(seconds){
   return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
 
+function useCallbackTimer(timer) {
+
+}
+
 function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
