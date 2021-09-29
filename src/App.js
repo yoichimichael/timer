@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -41,9 +41,7 @@ function convertSecondsToTimeDisplay(seconds){
   return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
 
-function useCallbackTimer(timer) {
 
-}
 
 function App() {
   const [seconds, setSeconds] = useState(0);
@@ -59,6 +57,8 @@ function App() {
     }
     return () => clearInterval(intervalID);
   }, [isRunning, seconds])
+
+  const timerUsecallback = useCallback(() => {}, [seconds])
 
   function addTime(type){
     setSeconds(prev => {
