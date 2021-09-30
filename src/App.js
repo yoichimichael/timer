@@ -46,7 +46,7 @@ function convertSecondsToTimeDisplay(seconds){
 function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [startTime, setStartTime] = useState();
+  const [startTime, setStartTime] = useState(null);
   const classes = useStyles();
 
   useEffect(() => {
@@ -73,7 +73,10 @@ function App() {
   }
 
   function startTimer(){
-    if (seconds > 0) setIsRunning(true);
+    if (seconds > 0) {
+      setStartTime(Math.floor(Date.now() / 1000));
+      setIsRunning(true);
+    }
   }
 
   function stopTimer(){
