@@ -58,11 +58,9 @@ function App() {
     return () => clearInterval(intervalID);
   }, [isRunning, seconds])
 
-  const timerUsecallback = useCallback(() => {}, [seconds])
-
-  function addTime(type){
+  function addTime(e){
     setSeconds(prev => {
-      if (type === 'm') {
+      if (e.target.dataset.type === 'm') {
         if (seconds + 60 > 5940) return 5940;
         if (seconds < 5940) return prev + 60;
       } else {
@@ -94,8 +92,8 @@ function App() {
           <Typography variant="h1" component="h1">{convertSecondsToTimeDisplay(seconds)}</Typography>
         </Box>
         <Box className={classes.controls}>
-          <Button variant="contained" onClick={() => addTime("m")} className={classes.increment}>+1 Min</Button>
-          <Button variant="contained" onClick={() => addTime("s")} className={classes.increment}>+5 Sec</Button>
+          <Button variant="contained" data-type={"m"} onClick={addTime} className={classes.increment}>+1 Min</Button>
+          <Button variant="contained" data-type={"s"} onClick={addTime} className={classes.increment}>+5 Sec</Button>
           <Button variant="contained" color="primary" onClick={isRunning ? stopTimer : startTimer}>{isRunning ? 'Pause' : 'Start'}</Button>
           <Button variant="contained" color="secondary" onClick={resetTimer}>Reset</Button>
         </Box>
