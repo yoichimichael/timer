@@ -46,14 +46,19 @@ function convertSecondsToTimeDisplay(seconds){
 function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [startTime, setStartTime] = useState(null);
+  const [dateTime, setDateTime] = useState(null);
   const classes = useStyles();
 
   useEffect(() => {
     let intervalID;
     if (seconds > 0) {
       intervalID = setInterval(() => {
-        if (isRunning) setSeconds(prev => prev - 1);
+        if (isRunning) {
+          const currTime = Date.now()
+          const difference = currTime - dateTime;
+          setSeconds(prev => prev - Math.floor(difference / 1000));
+          setDateTime(currTime);
+        }
       }, 1000)
     }
     return () => clearInterval(intervalID);
@@ -74,7 +79,7 @@ function App() {
 
   function startTimer(){
     if (seconds > 0) {
-      setStartTime(Math.floor(Date.now() / 1000));
+      setDateTime(Date.now());
       setIsRunning(true);
     }
   }
