@@ -46,6 +46,7 @@ function convertSecondsToTimeDisplay(seconds){
 function App() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [startTime, setStartTime] = useState();
   const classes = useStyles();
 
   useEffect(() => {
