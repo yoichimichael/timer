@@ -56,6 +56,7 @@ function App() {
         if (isRunning) {
           const currTime = Date.now()
           const difference = currTime - dateTime;
+          console.log({difference})
           setSeconds(prev => prev - Math.floor(difference / 1000));
           setDateTime(currTime);
         }
